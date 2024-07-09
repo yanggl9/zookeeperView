@@ -19,11 +19,12 @@ public class ZKServiceImpl implements ZKService {
     private PathChildrenCache childrenCache;
 
     @Override
-    public void setZkAddr(String addr){
+    public void setZkAddr(String addr, String username, String password){
         if(zk != null){
             ZkUtils.close(zk);
         }
-        zk = ZkUtils.getZkClient(addr);
+
+        zk = ZkUtils.getZkClient(addr, username, password);
     }
 
     @Override
@@ -81,9 +82,9 @@ public class ZKServiceImpl implements ZKService {
     }
 
     @Override
-    public void copyZKData(String srcZk, String targetZk, String path) {
-        CuratorFramework sZK = ZkUtils.getZkClient(srcZk);
-        CuratorFramework tZK = ZkUtils.getZkClient(targetZk);
+    public void copyZKData(String srcZk, String targetZk, String path, String username, String password) {
+        CuratorFramework sZK = ZkUtils.getZkClient(srcZk, username, password);
+        CuratorFramework tZK = ZkUtils.getZkClient(targetZk, null, null);
 
         copyDataToTargetZK(sZK, tZK, path);
 

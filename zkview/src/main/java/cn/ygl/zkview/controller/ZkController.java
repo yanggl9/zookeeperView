@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/zk")
+@RequestMapping("/")
 public class ZkController {
     @RequestMapping(value="*")
     public String index(Model model){
@@ -28,13 +28,14 @@ public class ZkController {
     public String copydata(Model model, @RequestParam(name = "srcZKAddr") String zk1, @RequestParam(name="targetZKAddr") String zk2,
                            @RequestParam(name = "zkPath") String zkPath){
 
-        zkService.copyZKData(zk1, zk2, zkPath);
+        zkService.copyZKData(zk1, zk2, zkPath, null, null);
         return "success";
     }
 
     @RequestMapping(value="/showzk", method = RequestMethod.POST)
-    public String showzk(Model model, @RequestParam String zkAddr){
-        zkService.setZkAddr(zkAddr);
+    public String showzk(Model model, @RequestParam String zkAddr,
+                         @RequestParam String username, @RequestParam String password){
+        zkService.setZkAddr(zkAddr, username, password);
         Map<String, String> datas = zkService.getDatas("/");
         model.addAttribute("datas", datas);
         model.addAttribute("path", "/");
@@ -64,6 +65,7 @@ public class ZkController {
         model.addAttribute("admin", bAdmin?"true":"false");
         return "/zk/showzk";
     }
+
 
     @RequestMapping(value="/create", method = RequestMethod.POST)
     @ResponseBody

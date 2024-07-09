@@ -8,6 +8,7 @@ public class ZkviewApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ZkviewApplication.class, args);
+		System.out.println("start ....");
 	}
 
 }

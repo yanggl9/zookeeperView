@@ -7,15 +7,21 @@ import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.zookeeper.CreateMode;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class ZkUtils {
 
     private final static int SESSION_TIMEOUT=60000;
 
-    public static CuratorFramework getZkClient(String address){
+    public static CuratorFramework getZkClient(String address, String username, String password){
         RetryPolicy policy = new ExponentialBackoffRetry(1000, 3);
-        CuratorFramework client = CuratorFrameworkFactory.builder()
+        CuratorFrameworkFactory.Builder builder = CuratorFrameworkFactory.builder();
+        if(StrUtil.isNotEmpty(username) && StrUtil.isNotEmpty(password)){
+            builder.authorization("digest",
+                    (username+":"+password).getBytes(StandardCharsets.UTF_8));
+        }
+        CuratorFramework client = builder
                 .connectString(address)
                 .sessionTimeoutMs(5000)
                 .connectionTimeoutMs(5000)

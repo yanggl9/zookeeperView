@@ -9,9 +9,13 @@
 </head>
 <body>
     <div>
-        <form action="/zk/showzk" method="post">
-            <label for="zkAddrId">zk地址</label>
+        <form action="/showzk" method="post">
+            <label for="zkAddrId"  >zk地址:</label>
             <input id="zkAddrId" type="text" name="zkAddr" value="127.0.0.1:2181" /><br>
+            <label for="username" >用户名：</label>
+            <input id="username" type="text" name="username" /><br>
+            <label for="password" >密码：</label>
+            <input id="password" type="password" name="password" /><br>
             <input type="submit" value="查看" />
         </form>
     </div>
@@ -19,7 +23,7 @@
     <div>
         <label for="srcZKAddr" >源zk地址</label>
         <input id="srcZKAddr" type="text" name="srcZK" value="127.0.0.1:2181" /><br>
-        <label for="targetZKAddr">目的zk地址</label>
+        <label for="targetZKAddr" >目的zk地址</label>
         <input id="targetZKAddr" type="text" name="targetZK" value="127.0.0.1:2181" /><br>
         <label for="zkPathId">zk路径</label>
         <input id="zkPathId" type="text" name="zkPath" value="/" /><br>

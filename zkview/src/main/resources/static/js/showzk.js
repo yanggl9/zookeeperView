@@ -14,7 +14,7 @@ var service = new zkservice();
 zkservice.prototype.refresh = function (path) {
         var tempForm = $("<form>");
         tempForm.attr({
-            "action":"/zk/get",
+            "action":"/get",
             "method":"post"
         });
         tempForm.css("display:node");
@@ -46,7 +46,7 @@ zkservice.prototype.path_click = function(obj){
 zkservice.prototype.node_click=function(obj){
     var tmpForm = $("<form>");
     tmpForm.attr({
-        "action":"/zk/data",
+        "action":"/data",
         "method":"post"
     });
     tmpForm.css("display:none");
@@ -77,6 +77,11 @@ zkservice.prototype.fXML = function(obj){
     $(obj).parent().prev().html("<xmp>"+fxml+"</xmp>");
 }
 
+zkservice.prototype.fJSON = function(obj){
+    var fjson = formatJson($(obj).parent().prev().text());
+    $(obj).parent().prev().html("<xmp>"+fjson+"</xmp>");
+}
+
 zkservice.prototype.delete_node = function(obj){
     if(!confirm("delete the specified path?"))
         return;
@@ -84,7 +89,7 @@ zkservice.prototype.delete_node = function(obj){
     data["path"] = $("#path").text();
     data["node"] = $(obj).parent().prev().prev().text();
 
-    $.post("/zk/delete", data, function(res){
+    $.post("/delete", data, function(res){
         service.refresh(res);
     });
 }
@@ -114,7 +119,7 @@ zkservice.prototype.win_add_node = function(obj){
     data["data"] = $("#pathData").val();
 
     $.ajax({
-        url:"/zk/create",
+        url:"/create",
         type:"post",
         data:data,
         success: function(res){
@@ -130,7 +135,7 @@ zkservice.prototype.win_change_node = function(obj){
     data["data"] = $("#changeDataValue").val();
 
     $.ajax({
-        url:"/zk/change",
+        url:"/change",
         type:"post",
         data:data,
         success: function(res){

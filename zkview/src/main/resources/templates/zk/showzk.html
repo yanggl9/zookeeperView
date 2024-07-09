@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <title>showzk</title>
 
-    <link rel="stylesheet" th:href="@{/css/showzk.css}" />
+    <link rel="stylesheet" th:href="@{/css/common.css}" />
 
     <script th:src="@{/jquery/jquery-3.3.1.min.js}"></script>
     <script th:src="@{/js/showzk.js}"></script>
     <script th:src="@{/js/formatXML.js}"></script>
+    <script th:src="@{/js/common-json.js}"></script>
     <script th:inline="javascript">
         $(document).ready(function(){
             var bAdmin = [[${admin}]];
@@ -27,7 +28,9 @@
         <li>
             <button class="admin" onclick="service.delete_node(this)">删除</button>
             <button class="admin" onclick="service.change_node(this)">修改</button>
+            <button onclick="service.fJSON(this)" >格式化json</button>
             <button onclick="service.fXML(this)" >格式化xml</button>
+            <button onclick="service.showACL(this)" >查看权限</button>
         </li>
     </ul>
 
